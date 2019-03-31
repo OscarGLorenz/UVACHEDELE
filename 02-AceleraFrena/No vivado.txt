@@ -1,0 +1,62 @@
+
+ ______________________________________________________________________________________________________
+||		     										      ||
+||	***     **     *****               *       *   * * * *   *       *      *      * *     ***    ||   
+||	** **   **    **   **               *     *       *       *     *      * *     *  *   *   *   || 
+||	**  **  **    **   **                *   *        *        *   *      *   *    *   *  *   *   ||  
+||	**   ** **    **   **                 * *         *         * *      *******   *  *   *   *   || 
+||	**     ***     *****                   *       * * * *       *      *       *  **      ***    || 
+||____________________________________________________________________________________________________||
+
+			----------------------------------------
+			||          Fase COMPILACION          ||
+			----------------------------------------
+
+
+ghdl -s "archivos.vhd" 						//comprobar sintaxis (sin comillas)
+ghdl -a "archivos.vhd" 						//comprobar arquitectura (sin comillas)
+ghdl -e top_entity     						//compilar
+ghdl -r top_entity --vcd=output.vcd --stop-time=10ms  		//ejecutar hasta time
+
+	
+		Fase de visualizacion
+	------------------------------------------
+
+gtkwave output.vcd   						//abrir generador
+
+
+
+
+			----------------------------------------
+			||          Fase TESTBENCH            ||
+			----------------------------------------
+
+
+		Pasar de VHDL a Verilog
+	------------------------------------------
+
+vhd2vl "archivo.vhd" > "archivo.v"  				//se hace uno a uno (sin comillas)
+
+
+			Verilog
+	----------------------------------------
+
+apio init --board icezum 	 				//Iniciar proyecto, solo 1 vez (Hay que probarlo)
+
+apio verify							//sintaxis
+apio build							//Sintetiza (compila)
+apio upload							//sube a la placa
+
+
+			------------------------------------------
+			||         Comentarios varios           ||
+			------------------------------------------
+
+	- Prohibido varios processes que asignen señales que comparten
+  
+	- Reset no debe estar en la lista de sensibilidad (no hacer Reset asíncrono, es decir, hay que hacer Clear)
+
+	- Al hacer estructuras con case (máquinas de estados), hay que pensar con las transiciones, es decir,
+	  hacer cuando detectes una entrada, pasas de estado (hacer un if y dentro un case para las transiciones).
+	  "En vez de meter los if dentro del case, meter los case dentro del if".
+	

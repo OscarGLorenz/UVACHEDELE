@@ -1,0 +1,16 @@
+
+*.dblite
+
+*.v
+
+*.cf
+
+*.asc
+
+*.bin
+
+*.blif
+
+*.gkw
+
+*.vcd

@@ -1,0 +1,20 @@
+# -----------------------------------------------------------------------------
+#- Uvachedele constraint file (.pcf)
+# -----------------------------------------------------------------------------
+
+# ------------ User Leds ------------------------------------------------------
+set_io --warn-no-port leds[0]  37
+set_io --warn-no-port leds[1]  38
+set_io --warn-no-port leds[2]  39
+set_io --warn-no-port leds[3]  41
+set_io --warn-no-port leds[4]  42
+set_io --warn-no-port leds[5]  43
+set_io --warn-no-port leds[6]  44
+set_io --warn-no-port leds[7]  45
+
+# -------------------------- SYSTEM CLOCK ------------------------------------
+set_io --warn-no-port clk 49
+
+# ------------ User push buttons ---------------------------------------------
+set_io --warn-no-port reset 32
+

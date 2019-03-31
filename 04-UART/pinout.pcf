@@ -1,0 +1,9 @@
+
+
+# -------------------------- SYSTEM CLOCK ------------------------------------
+set_io --warn-no-port clk 49
+
+# ------------ User push buttons ---------------------------------------------
+set_io --warn-no-port reset 32
+
+set_io --warn-no-port tx 9
