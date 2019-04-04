@@ -9,10 +9,10 @@ ENTITY HBridge IS
 	PORT (
 		clk         : IN STD_LOGIC;
 		reset       : IN STD_LOGIC;
-		enable		: IN STD_LOGIC;
-		speedA    	: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
-		speedB		: IN STD_LOGIC_VECTOR(7 downto 0);
-		
+--		enable		: IN STD_LOGIC;
+--		speedA    	: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+--		speedB		: IN STD_LOGIC_VECTOR(7 downto 0);
+
 		AIN1		: OUT STD_LOGIC;
 		AIN2		: OUT STD_LOGIC;
 		BIN1		: OUT STD_LOGIC;
@@ -26,8 +26,11 @@ ARCHITECTURE Structural OF HBridge IS
 -- GLOBAL SIGNALS #######################################################
 	SIGNAL dirA		: STD_LOGIC;
 	SIGNAL dirB		: STD_LOGIC;
+  SIGNAL speedA : STD_LOGIC_VECTOR(7 downto 0);
+	SIGNAL speedB : STD_LOGIC_VECTOR(7 downto 0);
+	SIGNAL enable : STD_LOGIC;
 
-	COMPONENT pwmGenerator IS 
+	COMPONENT pwmGenerator IS
 		GENERIC(
 			pwm_res		: INTEGER;
 			prescaler 	: INTEGER
@@ -38,7 +41,7 @@ ARCHITECTURE Structural OF HBridge IS
 			enable		: IN STD_LOGIC;
 			speed    	: IN STD_LOGIC_VECTOR(pwm_res - 1 DOWNTO 0);
 			dir			: IN STD_LOGIC;
-		
+
 			dir1		: OUT STD_LOGIC;
 			dir2		: OUT STD_LOGIC;
 			pwm			: OUT STD_LOGIC
@@ -50,8 +53,12 @@ BEGIN
 -- Direction configuration, outsource as I/O if robot has retraction or pivoting enabled
 dirA <= '0';				-- Invert if motor direction is wrong
 dirB <= '0';				-- Invert if motor direction is wrong
+speedA <= x"F";
+enable <= '1';
+speedB <= x"F";
 
-pwmMotorA: pwmGenerator 
+
+pwmMotorA: pwmGenerator
 	GENERIC MAP(
 		pwm_res => pwm_res,
 		prescaler => prescaler
@@ -67,7 +74,7 @@ pwmMotorA: pwmGenerator
 		pwm => PWMA
 	);
 
-pwmMotorB: pwmGenerator 
+pwmMotorB: pwmGenerator
 	GENERIC MAP(
 		pwm_res => pwm_res,
 		prescaler => prescaler
@@ -82,5 +89,5 @@ pwmMotorB: pwmGenerator
 		dir2 => BIN2,
 		pwm => PWMB
 	);
-		
+
 END Structural;

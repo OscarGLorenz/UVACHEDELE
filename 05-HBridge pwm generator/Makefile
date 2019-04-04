@@ -63,4 +63,5 @@ clean:
 	@rm -f *.blif
 	@rm -f *.cf
 	@rm -f output.ghw
+	@rm -f *.v
 

@@ -33,7 +33,7 @@ begin
 
   process begin
     reset<='0'; wait for 5*it;
-    reset<='1'; wait for 10*it;
+    reset<='1'; wait for 200*it;
     reset<='0'; wait;
   end process;
 

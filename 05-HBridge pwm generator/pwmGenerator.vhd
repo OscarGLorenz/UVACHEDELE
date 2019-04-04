@@ -12,10 +12,10 @@ ENTITY pwmGenerator IS
 	PORT(
 		clk         : IN STD_LOGIC;
 		reset       : IN STD_LOGIC;
-		enable		: IN STD_LOGIC;
-		speed    	: IN STD_LOGIC_VECTOR(pwm_res - 1 DOWNTO 0);
-		dir			: IN STD_LOGIC;
-		
+		enable		  : IN STD_LOGIC;
+		speed      	: IN STD_LOGIC_VECTOR(pwm_res - 1 DOWNTO 0);
+		dir		    	: IN STD_LOGIC;
+
 		dir1		: OUT STD_LOGIC;
 		dir2		: OUT STD_LOGIC;
 		pwm			: OUT STD_LOGIC
@@ -26,7 +26,7 @@ ARCHITECTURE Behavioural OF pwmGenerator IS
 	SIGNAL prescaler_count		: INTEGER RANGE 0 to (prescaler - 1) := 0;
 	SIGNAL prescaler_signal		: STD_LOGIC := '0';
 	SIGNAL pwm_count 			: INTEGER RANGE 0 to 255 := 0;  --pwm counter
-	SIGNAL pwm_count_dir		: STD_LOGIC := '0';							--pwm counter direction				
+	SIGNAL pwm_count_dir		: STD_LOGIC := '0';							--pwm counter direction
 BEGIN
 
 pwmPrescaler:
@@ -36,7 +36,7 @@ PROCESS(clk, reset) BEGIN
 		prescaler_signal <= '0';			--reset pwm increment
     ELSIF clk'EVENT AND clk = '1' THEN   	--rising system clock edge
 		IF enable = '1' THEN				--pwm module enabled
-			IFprescaler_count = (prescaler - 1) THEN 	--end of sampler period reached
+			IF prescaler_count = (prescaler - 1) THEN 	--end of sampler period reached
 				prescaler_count <= 0;                	--clear sampler counter
 				prescaler_signal <= '1';				--increment pwm counter
 			ELSE                                    	--end of sampler period not reached
@@ -56,17 +56,17 @@ PROCESS(clk, reset) BEGIN
 		IF enable = '1' THEN				--pwm module enabled
 			IF prescaler_signal = '1' THEN
 				IF pwm_count_dir = '1' THEN
-					IF pwm_count = (2**pwm_res - 2) THEN
+					IF pwm_count = (256 - 2) THEN
 						pwm_count_dir <= '0';
 						pwm_count <= pwm_count - 1;
-					ELSE 
+					ELSE
 						pwm_count <= pwm_count + 1;
 					END IF;
 				ELSE
 					IF pwm_count = 0 THEN
 						pwm_count_dir <= '1';
 						pwm_count <= pwm_count + 1;
-					ELSE 
+					ELSE
 						pwm_count <= pwm_count - 1;
 					END IF;
 				END IF;

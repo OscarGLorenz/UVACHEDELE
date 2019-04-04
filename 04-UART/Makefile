@@ -21,22 +21,22 @@ init:
 # Simulate with testbench entity tb for 10 ms
 # make sim top=tb time=10ms
 sim:
-	@echo -e "$(BICyan)\n Checking syntaxis... $(NC)"
+	@echo "$(BICyan)\n Checking syntaxis... $(NC)"
 	@ghdl -s *.vhd
-	@echo -e "$(BIGreen) Syntaxis is correct!\n $(NC)"
-	@echo -e "$(BICyan) Checking architecture... $(NC)"
+	@echo "$(BIGreen) Syntaxis is correct!\n $(NC)"
+	@echo "$(BICyan) Checking architecture... $(NC)"
 	@ghdl -a *.vhd
-	@echo -e "$(BIGreen) Architecture is correct!\n $(NC)"
-	@echo -e "$(BICyan) Synthesising... $(NC)"
+	@echo "$(BIGreen) Architecture is correct!\n $(NC)"
+	@echo "$(BICyan) Synthesising... $(NC)"
 	@ghdl -e $(top)
-	@echo -e "$(BIGreen) Synthesis done!\n $(NC)"
-	@echo -e "$(BICyan) Simulating... $(NC)"
+	@echo "$(BIGreen) Synthesis done!\n $(NC)"
+	@echo "$(BICyan) Simulating... $(NC)"
 	@ghdl -r $(top) --wave=output.ghw --stop-time=$(time)
-	@echo -e "$(BIGreen) Simulation done!\n $(NC)"
-	@echo -e "$(BICyan) Opening gtkwave... $(NC)"
+	@echo "$(BIGreen) Simulation done!\n $(NC)"
+	@echo "$(BICyan) Opening gtkwave... $(NC)"
 	@gtkwave output.ghw
 	@rm output.ghw
-	@echo -e "$(BIGreen) Simulation file cleaned\n $(NC)"
+	@echo "$(BIGreen) Simulation file cleaned\n $(NC)"
 
 # Build target, files ending on _tb are not built
 # make build
@@ -45,21 +45,23 @@ build:
 		echo -e "$(BICyan)\n Translating $$file $(NC)"; \
 		vhd2vl "$$file.vhd" > "$$file.v";\
 	done
-	@echo -e "$(BICyan)\n Building... $(NC)"
+	@echo "$(BICyan)\n Building... $(NC)"
 	@apio build --verbose-arachne
 	@rm *.v
 
 # Build target and upload
 # make upload
 upload:	build
-	@echo -e "$(BICyan) \n Uploading... $(NC)"
+	@echo "$(BICyan) \n Uploading... $(NC)"
 	@apio upload
 
 # Clean bitstream and synthesis
 # make clean
 clean:
-	@echo -e "$(BICyan) \n Cleaning... $(NC)"
+	@echo "$(BICyan) \n Cleaning... $(NC)"
 	@rm -f *.asc
 	@rm -f *.bin
 	@rm -f *.blif
 	@rm -f *.cf
+	@rm -f output.ghw
+
