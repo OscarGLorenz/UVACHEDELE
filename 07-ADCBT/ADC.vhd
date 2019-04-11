@@ -108,22 +108,22 @@ begin
 
 -- Decodifier for correcting mux
 with mux select actual_mux <=
-					x"0" when x"7",
-					x"1" when x"6",
-					x"2" when x"5",
-					x"3" when x"4",
-					x"4" when x"3",
-					x"5" when x"2",
-					x"6" when x"1",
-					x"7" when x"0",
-					x"8" when x"D",
-					x"9" when x"C",
-					x"A" when x"B",
-					x"B" when x"A",
-					x"C" when x"9",
-					x"D" when x"8",
-					x"E" when x"F",
-					x"F" when x"E",
+					x"0" when x"8", -- :D
+					x"1" when x"7", -- :D
+					x"2" when x"6", -- :D
+					x"3" when x"5", -- :D
+					x"4" when x"4", -- :D
+					x"5" when x"3", -- :D
+					x"6" when x"2", -- :D
+					x"7" when x"1", -- :D
+					x"8" when x"E", -- :D
+					x"9" when x"D", -- :D
+					x"A" when x"C", -- :D
+					x"B" when x"B", -- :D
+					x"C" when x"A", -- :D
+					x"D" when x"9", -- :D
+					x"E" when x"0", -- :D
+					x"F" when x"F", -- :D
 					x"0" when others;
 
 adc_sel <= std_logic_vector(mux);

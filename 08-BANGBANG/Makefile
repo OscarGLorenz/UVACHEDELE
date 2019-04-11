@@ -36,13 +36,13 @@ sim:
 	@echo "$(BICyan) Opening gtkwave... $(NC)"
 	@gtkwave output.ghw
 	@rm output.ghw
-	@echo -e "$(BIGreen) Simulation file cleaned\n $(NC)"
+	@echo "$(BIGreen) Simulation file cleaned\n $(NC)"
 
 # Build target, files ending on _tb are not built
 # make build
 build:
 	@for file in $(VHD_FILES_NOEXT) ; do \
-		echo -e "$(BICyan)\n Translating $$file $(NC)"; \
+		echo "$(BICyan)\n Translating $$file $(NC)"; \
 		vhd2vl "$$file.vhd" > "$$file.v";\
 	done
 	@echo "$(BICyan)\n Building... $(NC)"
@@ -63,4 +63,3 @@ clean:
 	@rm -f *.blif
 	@rm -f *.cf
 	@rm -f output.ghw
-

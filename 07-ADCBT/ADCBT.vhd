@@ -9,6 +9,7 @@ entity adcbt is
     tx      : out std_logic;
     adc_rd  : out std_logic;
     adc_int : in  std_logic;
+    leds : out std_logic_vector(7 downto 0);
     adc_db  : in  std_logic_vector(7 downto 0);
     adc_sel : out std_logic_vector(3 downto 0)
   );
@@ -132,5 +133,7 @@ begin
     qtr15 => qtr15,
     tx => tx
   );
+
+  leds <= qtr09;
 
 end Behavioral;
