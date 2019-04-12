@@ -42,7 +42,7 @@ sim:
 # make build
 build:
 	@for file in $(VHD_FILES_NOEXT) ; do \
-		echo -e "$(BICyan)\n Translating $$file $(NC)"; \
+		echo "$(BICyan)\n Translating $$file $(NC)"; \
 		vhd2vl "$$file.vhd" > "$$file.v";\
 	done
 	@echo "$(BICyan)\n Building... $(NC)"
@@ -63,4 +63,3 @@ clean:
 	@rm -f *.blif
 	@rm -f *.cf
 	@rm -f output.ghw
-
