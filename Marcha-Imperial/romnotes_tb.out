@@ -1,0 +1,275 @@
+#! /usr/bin/vvp
+:ivl_version "10.1 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "vhdl_sys";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0x55ccdbbbd640 .scope module, "romnotes_tb" "romnotes_tb" 2 10;
+ .timescale 0 0;
+v0x55ccdbbdf210_0 .net "ch_out", 0 0, v0x55ccdbbdd450_0;  1 drivers
+v0x55ccdbbdf300_0 .var "clk", 0 0;
+S_0x55ccdbbbd7c0 .scope module, "dut" "romnotes" 2 22, 3 16 0, S_0x55ccdbbbd640;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "clk"
+    .port_info 1 /OUTPUT 8 "leds"
+    .port_info 2 /OUTPUT 1 "ch_out"
+P_0x55ccdbbbbd70 .param/l "AW" 0 3 28, +C4<00000000000000000000000000001000>;
+P_0x55ccdbbbbdb0 .param/l "DUR" 0 3 22, +C4<00000000000000000000000000000010>;
+P_0x55ccdbbbbdf0 .param/l "DW" 0 3 31, +C4<00000000000000000000000000010000>;
+P_0x55ccdbbbbe30 .param/str "ROMFILE" 0 3 25, "imperial.list";
+v0x55ccdbbdeca0_0 .var "addr", 7 0;
+v0x55ccdbbded60_0 .net "ch_out", 0 0, v0x55ccdbbdd450_0;  alias, 1 drivers
+v0x55ccdbbdee00_0 .net "clk", 0 0, v0x55ccdbbdf300_0;  1 drivers
+v0x55ccdbbdeed0_0 .net "clk_dur", 0 0, L_0x55ccdbbefe60;  1 drivers
+v0x55ccdbbdefa0_0 .net "leds", 7 0, L_0x55ccdbbef950;  1 drivers
+v0x55ccdbbdf040_0 .net "note", 15 0, v0x55ccdbbdde70_0;  1 drivers
+v0x55ccdbbdf130_0 .var "rstn", 0 0;
+L_0x55ccdbbef950 .part v0x55ccdbbdde70_0, 0, 8;
+S_0x55ccdbbbd940 .scope module, "CH0" "notegen" 3 59, 4 13 0, S_0x55ccdbbbd7c0;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "clk"
+    .port_info 1 /INPUT 1 "rstn"
+    .port_info 2 /INPUT 16 "note"
+    .port_info 3 /OUTPUT 1 "clk_out"
+v0x55ccdbbbb640_0 .net *"_s0", 31 0, L_0x55ccdbbdf3c0;  1 drivers
+L_0x7fbd3502c0f0 .functor BUFT 1, C4<00>, C4<0>, C4<0>, C4<0>;
+v0x55ccdbbbba70_0 .net/2s *"_s10", 1 0, L_0x7fbd3502c0f0;  1 drivers
+v0x55ccdbbbafb0_0 .net *"_s12", 1 0, L_0x55ccdbbef670;  1 drivers
+L_0x7fbd3502c018 .functor BUFT 1, C4<0000000000000000>, C4<0>, C4<0>, C4<0>;
+v0x55ccdbbb45b0_0 .net *"_s3", 15 0, L_0x7fbd3502c018;  1 drivers
+L_0x7fbd3502c060 .functor BUFT 1, C4<00000000000000000000000000000000>, C4<0>, C4<0>, C4<0>;
+v0x55ccdbbb7540_0 .net/2u *"_s4", 31 0, L_0x7fbd3502c060;  1 drivers
+v0x55ccdbbdd1f0_0 .net *"_s6", 0 0, L_0x55ccdbbef4d0;  1 drivers
+L_0x7fbd3502c0a8 .functor BUFT 1, C4<01>, C4<0>, C4<0>, C4<0>;
+v0x55ccdbbdd2b0_0 .net/2s *"_s8", 1 0, L_0x7fbd3502c0a8;  1 drivers
+v0x55ccdbbdd390_0 .net "clk", 0 0, v0x55ccdbbdf300_0;  alias, 1 drivers
+v0x55ccdbbdd450_0 .var "clk_out", 0 0;
+v0x55ccdbbdd510_0 .net "clk_tmp", 0 0, L_0x55ccdbbef830;  1 drivers
+v0x55ccdbbdd5d0_0 .var "divcounter", 15 0;
+v0x55ccdbbdd6b0_0 .net "note", 15 0, v0x55ccdbbdde70_0;  alias, 1 drivers
+v0x55ccdbbdd790_0 .net "rstn", 0 0, v0x55ccdbbdf130_0;  1 drivers
+E_0x55ccdbbac150 .event posedge, v0x55ccdbbdd390_0;
+L_0x55ccdbbdf3c0 .concat [ 16 16 0 0], v0x55ccdbbdd5d0_0, L_0x7fbd3502c018;
+L_0x55ccdbbef4d0 .cmp/eq 32, L_0x55ccdbbdf3c0, L_0x7fbd3502c060;
+L_0x55ccdbbef670 .functor MUXZ 2, L_0x7fbd3502c0f0, L_0x7fbd3502c0a8, L_0x55ccdbbef4d0, C4<>;
+L_0x55ccdbbef830 .part L_0x55ccdbbef670, 0, 1;
+S_0x55ccdbbdd8d0 .scope module, "ROM" "genrom" 3 50, 5 15 0, S_0x55ccdbbbd7c0;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "clk"
+    .port_info 1 /INPUT 8 "addr"
+    .port_info 2 /OUTPUT 16 "data"
+P_0x55ccdbbbbe80 .param/l "AW" 0 5 16, +C4<00000000000000000000000000001000>;
+P_0x55ccdbbbbec0 .param/l "DW" 0 5 17, +C4<00000000000000000000000000010000>;
+P_0x55ccdbbbbf00 .param/l "NPOS" 1 5 28, +C4<00000000000000000000000100000000>;
+P_0x55ccdbbbbf40 .param/str "ROMFILE" 0 5 25, "imperial.list";
+v0x55ccdbbddc80_0 .net "addr", 7 0, v0x55ccdbbdeca0_0;  1 drivers
+v0x55ccdbbddd80_0 .net "clk", 0 0, v0x55ccdbbdf300_0;  alias, 1 drivers
+v0x55ccdbbdde70_0 .var "data", 15 0;
+v0x55ccdbbddf70 .array "rom", 255 0, 15 0;
+S_0x55ccdbbde050 .scope module, "TIMER0" "dividerp1" 3 81, 6 18 0, S_0x55ccdbbbd7c0;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "clk"
+    .port_info 1 /OUTPUT 1 "clk_out"
+P_0x55ccdbbba7f0 .param/l "M" 0 6 22, +C4<00000000000000000000000000000010>;
+P_0x55ccdbbba830 .param/l "N" 1 6 25, +C4<00000000000000000000000000000001>;
+v0x55ccdbbde350_0 .net *"_s0", 31 0, L_0x55ccdbbef9f0;  1 drivers
+L_0x7fbd3502c210 .functor BUFT 1, C4<00>, C4<0>, C4<0>, C4<0>;
+v0x55ccdbbde430_0 .net/2s *"_s10", 1 0, L_0x7fbd3502c210;  1 drivers
+v0x55ccdbbde510_0 .net *"_s12", 1 0, L_0x55ccdbbefca0;  1 drivers
+L_0x7fbd3502c138 .functor BUFT 1, C4<0000000000000000000000000000000>, C4<0>, C4<0>, C4<0>;
+v0x55ccdbbde600_0 .net *"_s3", 30 0, L_0x7fbd3502c138;  1 drivers
+L_0x7fbd3502c180 .functor BUFT 1, C4<00000000000000000000000000000000>, C4<0>, C4<0>, C4<0>;
+v0x55ccdbbde6e0_0 .net/2u *"_s4", 31 0, L_0x7fbd3502c180;  1 drivers
+v0x55ccdbbde810_0 .net *"_s6", 0 0, L_0x55ccdbbefb60;  1 drivers
+L_0x7fbd3502c1c8 .functor BUFT 1, C4<01>, C4<0>, C4<0>, C4<0>;
+v0x55ccdbbde8d0_0 .net/2s *"_s8", 1 0, L_0x7fbd3502c1c8;  1 drivers
+v0x55ccdbbde9b0_0 .net "clk", 0 0, v0x55ccdbbdf300_0;  alias, 1 drivers
+v0x55ccdbbdeaa0_0 .net "clk_out", 0 0, L_0x55ccdbbefe60;  alias, 1 drivers
+v0x55ccdbbdeb60_0 .var "divcounter", 0 0;
+L_0x55ccdbbef9f0 .concat [ 1 31 0 0], v0x55ccdbbdeb60_0, L_0x7fbd3502c138;
+L_0x55ccdbbefb60 .cmp/eq 32, L_0x55ccdbbef9f0, L_0x7fbd3502c180;
+L_0x55ccdbbefca0 .functor MUXZ 2, L_0x7fbd3502c210, L_0x7fbd3502c1c8, L_0x55ccdbbefb60, C4<>;
+L_0x55ccdbbefe60 .part L_0x55ccdbbefca0, 0, 1;
+    .scope S_0x55ccdbbdd8d0;
+T_0 ;
+    %wait E_0x55ccdbbac150;
+    %load/vec4 v0x55ccdbbddc80_0;
+    %pad/u 10;
+    %ix/vec4 4;
+    %load/vec4a v0x55ccdbbddf70, 4;
+    %assign/vec4 v0x55ccdbbdde70_0, 0;
+    %jmp T_0;
+    .thread T_0;
+    .scope S_0x55ccdbbdd8d0;
+T_1 ;
+    %vpi_call 5 41 "$readmemh", P_0x55ccdbbbbf40, v0x55ccdbbddf70 {0 0 0};
+    %end;
+    .thread T_1;
+    .scope S_0x55ccdbbbd940;
+T_2 ;
+    %pushi/vec4 0, 0, 16;
+    %store/vec4 v0x55ccdbbdd5d0_0, 0, 16;
+    %end;
+    .thread T_2;
+    .scope S_0x55ccdbbbd940;
+T_3 ;
+    %wait E_0x55ccdbbac150;
+    %load/vec4 v0x55ccdbbdd790_0;
+    %pad/u 32;
+    %cmpi/e 0, 0, 32;
+    %jmp/0xz  T_3.0, 4;
+    %pushi/vec4 0, 0, 16;
+    %assign/vec4 v0x55ccdbbdd5d0_0, 0;
+    %jmp T_3.1;
+T_3.0 ;
+    %load/vec4 v0x55ccdbbdd6b0_0;
+    %pad/u 32;
+    %cmpi/e 0, 0, 32;
+    %jmp/0xz  T_3.2, 4;
+    %pushi/vec4 0, 0, 16;
+    %assign/vec4 v0x55ccdbbdd5d0_0, 0;
+    %jmp T_3.3;
+T_3.2 ;
+    %load/vec4 v0x55ccdbbdd5d0_0;
+    %pad/u 32;
+    %load/vec4 v0x55ccdbbdd6b0_0;
+    %pad/u 32;
+    %subi 1, 0, 32;
+    %cmp/e;
+    %jmp/0xz  T_3.4, 4;
+    %pushi/vec4 0, 0, 16;
+    %assign/vec4 v0x55ccdbbdd5d0_0, 0;
+    %jmp T_3.5;
+T_3.4 ;
+    %load/vec4 v0x55ccdbbdd5d0_0;
+    %addi 1, 0, 16;
+    %assign/vec4 v0x55ccdbbdd5d0_0, 0;
+T_3.5 ;
+T_3.3 ;
+T_3.1 ;
+    %jmp T_3;
+    .thread T_3;
+    .scope S_0x55ccdbbbd940;
+T_4 ;
+    %wait E_0x55ccdbbac150;
+    %load/vec4 v0x55ccdbbdd790_0;
+    %pad/u 32;
+    %cmpi/e 0, 0, 32;
+    %jmp/0xz  T_4.0, 4;
+    %pushi/vec4 0, 0, 1;
+    %assign/vec4 v0x55ccdbbdd450_0, 0;
+    %jmp T_4.1;
+T_4.0 ;
+    %load/vec4 v0x55ccdbbdd6b0_0;
+    %pad/u 32;
+    %cmpi/e 0, 0, 32;
+    %jmp/0xz  T_4.2, 4;
+    %pushi/vec4 0, 0, 1;
+    %assign/vec4 v0x55ccdbbdd450_0, 0;
+    %jmp T_4.3;
+T_4.2 ;
+    %load/vec4 v0x55ccdbbdd510_0;
+    %pad/u 32;
+    %cmpi/e 1, 0, 32;
+    %jmp/0xz  T_4.4, 4;
+    %load/vec4 v0x55ccdbbdd450_0;
+    %inv;
+    %assign/vec4 v0x55ccdbbdd450_0, 0;
+T_4.4 ;
+T_4.3 ;
+T_4.1 ;
+    %jmp T_4;
+    .thread T_4;
+    .scope S_0x55ccdbbde050;
+T_5 ;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x55ccdbbdeb60_0, 0, 1;
+    %end;
+    .thread T_5;
+    .scope S_0x55ccdbbde050;
+T_6 ;
+    %wait E_0x55ccdbbac150;
+    %load/vec4 v0x55ccdbbdeb60_0;
+    %pad/u 32;
+    %cmpi/e 1, 0, 32;
+    %flag_mov 8, 4;
+    %jmp/0 T_6.0, 8;
+    %pushi/vec4 0, 0, 2;
+    %jmp/1 T_6.1, 8;
+T_6.0 ; End of true expr.
+    %load/vec4 v0x55ccdbbdeb60_0;
+    %pad/u 2;
+    %addi 1, 0, 2;
+    %jmp/0 T_6.1, 8;
+ ; End of false expr.
+    %blend;
+T_6.1;
+    %pad/u 1;
+    %assign/vec4 v0x55ccdbbdeb60_0, 0;
+    %jmp T_6;
+    .thread T_6;
+    .scope S_0x55ccdbbbd7c0;
+T_7 ;
+    %pushi/vec4 0, 0, 8;
+    %store/vec4 v0x55ccdbbdeca0_0, 0, 8;
+    %end;
+    .thread T_7;
+    .scope S_0x55ccdbbbd7c0;
+T_8 ;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x55ccdbbdf130_0, 0, 1;
+    %end;
+    .thread T_8;
+    .scope S_0x55ccdbbbd7c0;
+T_9 ;
+    %wait E_0x55ccdbbac150;
+    %pushi/vec4 1, 0, 1;
+    %assign/vec4 v0x55ccdbbdf130_0, 0;
+    %jmp T_9;
+    .thread T_9;
+    .scope S_0x55ccdbbbd7c0;
+T_10 ;
+    %wait E_0x55ccdbbac150;
+    %load/vec4 v0x55ccdbbdeed0_0;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_10.0, 8;
+    %load/vec4 v0x55ccdbbdeca0_0;
+    %addi 1, 0, 8;
+    %assign/vec4 v0x55ccdbbdeca0_0, 0;
+T_10.0 ;
+    %jmp T_10;
+    .thread T_10;
+    .scope S_0x55ccdbbbd640;
+T_11 ;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x55ccdbbdf300_0, 0, 1;
+    %end;
+    .thread T_11;
+    .scope S_0x55ccdbbbd640;
+T_12 ;
+    %delay 1, 0;
+    %load/vec4 v0x55ccdbbdf300_0;
+    %inv;
+    %assign/vec4 v0x55ccdbbdf300_0, 0;
+    %jmp T_12;
+    .thread T_12;
+    .scope S_0x55ccdbbbd640;
+T_13 ;
+    %vpi_call 2 36 "$dumpfile", "romnotes_tb.vcd" {0 0 0};
+    %vpi_call 2 37 "$dumpvars", 32'sb00000000000000000000000000000000, S_0x55ccdbbbd640 {0 0 0};
+    %delay 200, 0;
+    %vpi_call 2 39 "$display", "FIN de la simulacion" {0 0 0};
+    %vpi_call 2 40 "$finish" {0 0 0};
+    %end;
+    .thread T_13;
+# The file index is used to find the file name in the following table.
+:file_names 7;
+    "N/A";
+    "<interactive>";
+    "romnotes_tb.v";
+    "romnotes.v";
+    "notegen.v";
+    "genrom.v";
+    "dividerp1.v";
