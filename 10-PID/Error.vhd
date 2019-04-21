@@ -29,7 +29,7 @@ architecture Behavioural of error is
 	-- modiifica
 	constant putensia : unsigned(7 downto 0) := x"20";
 	constant putensiaMaxima : unsigned(7 downto 0) := x"40";
-	constant Kp : std_logic_vector(7 downto 0) := x"30";
+	constant Kp : std_logic_vector(7 downto 0) := x"FF";
 	constant Ki : std_logic_vector(7 downto 0) := x"00";
 	constant Kd : std_logic_vector(7 downto 0) := x"00";
 	signal sum  : signed(13 downto 0)  := (others => '0');
@@ -68,7 +68,7 @@ architecture Behavioural of error is
 	signal qtr13   : std_logic_vector(7 downto 0);
 	signal qtr14   : std_logic_vector(7 downto 0);
 	signal qtr15   : std_logic_vector(7 downto 0);
-	component adc
+component adc
 	port (
 	clk     : in  std_logic;
 	reset   : in  std_logic;
@@ -95,30 +95,37 @@ architecture Behavioural of error is
 	);
 end component adc;
 
+signal dataA  : signed(10 downto 0)  := (others => '0');
+signal dataB  : signed(10 downto 0)  := (others => '0');
 signal ctrlA  : unsigned(7 downto 0)  := (others => '0');
 signal ctrlB  : unsigned(7 downto 0)  := (others => '0');
 component pwm
-port (
-clk   : in  std_logic;
-reset : in  std_logic;
-ctrlA : in  unsigned (7 downto 0);
-ctrlB : in  unsigned (7 downto 0);
-max 	: in 	unsigned (7 downto 0);
-ain1  : out std_logic;
-ain2  : out std_logic;
-bin1  : out std_logic;
-bin2  : out std_logic;
-pwmb  : out std_logic;
-pwma  : out std_logic
-);
+ port (
+ clk   : in  std_logic;
+ reset : in  std_logic;
+ ctrlA : in  unsigned (7 downto 0);
+ ctrlB : in  unsigned (7 downto 0);
+ max 	: in 	unsigned (7 downto 0);
+ ain1  : out std_logic;
+ ain2  : out std_logic;
+ bin1  : out std_logic;
+ bin2  : out std_logic;
+ pwmb  : out std_logic;
+ pwma  : out std_logic
+ );
 end component pwm;
 component sendhex
-port (
-clk   : in  std_logic;
-reset : in  std_logic;
-err   : in  signed(10 downto 0);
-tx    : out std_logic
-);
+ port (
+ clk   : in  std_logic;
+ reset : in  std_logic;
+ data0  : in signed(10 downto 0) ;
+ data1  : in signed(10 downto 0) ;
+ data2  : in signed(10 downto 0) ;
+ data3  : in signed(10 downto 0) ;
+ data4  : in signed(10 downto 0) ;
+ data5  : in signed(10 downto 0) ;
+ tx    : out std_logic
+ );
 end component sendhex;
 
 signal outrut     : signed(10 downto 0);
@@ -129,11 +136,11 @@ signal dif  : signed(10 downto 0)  := (others => '0');
 signal lastErr  : signed(10 downto 0)  := (others => '0');
 
 component fixed
-port (
-number     : in  signed(10 downto 0);
-multiplier : in  std_logic_vector(7 downto 0);
-outrut     : out signed(10 downto 0)
-);
+	port (
+	number     : in  signed(10 downto 0);
+	multiplier : in  std_logic_vector(7 downto 0);
+	outrut     : out signed(10 downto 0)
+	);
 end component fixed;
 
 signal divisor : integer := 0;
@@ -183,14 +190,15 @@ begin
 			err2 <= ("00" & l5) + ("00" & l6) + ("00" & l7) + ("00" & l8) + ("00" & l9);
 			err <= signed('0' & err1) - signed('0' & err2);
 
-			if outrut + outruti + outrutd > 0 then
-						ctrlB <= putensia + outrut + outruti + outrutd;
+			if outrut > 0 then
+			  ctrlB <= putensia + outrut;
 				ctrlA <= putensia;
 			else
-						ctrlA <= putensia + (not (outrut + outruti + outrutd-1));
+				ctrlA <= putensia + (not (outrut-1));
 				ctrlB <= putensia;
 			end if;
-
+			dataA <= "000" & ctrlA;
+			dataB <= "000" & ctrlB;
 		end if;
 	end process;
 
@@ -216,7 +224,12 @@ begin
 	port map (
 	clk   => clk,
 	reset => reset,
-	err   => sum(13 downto 3), --outrut
+	data0 => err,
+	data1 => outrut,
+	data2 => outruti,
+	data3 => outrutd,
+	data4 => dataA,
+	data5 => dataB,
 	tx    => tx
 	);
 
