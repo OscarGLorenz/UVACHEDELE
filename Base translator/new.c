@@ -42,7 +42,11 @@ void int2bin2(long int num){
 
 
 int main(int argc, char *argv[]){
-	if ((argc==2)&& (strcmp(argv[1],"-h")||(strcmp(argv[1],"help")))){
+	if(argc==1){
+		printf("\n\nWrong command or arguments. Try \"%s -h\" or \"%s help\"\n\n",argv[0],argv[0]);
+		return 0;
+	}
+	if ((argc==2)&& ((strcmp(argv[1],"-h")||(strcmp(argv[1],"help"))))){
 		printf("\n\t ____                   _______                  _       _\n");
 		printf("\t|  _ \\                 |__   __|                | |     | |\n");
 		printf("\t| |_) | __ _ ___  ___     | |_ __ __ _ _ __  ___| | __ _| |_ ___  _ __\n ");
@@ -61,7 +65,7 @@ int main(int argc, char *argv[]){
 		printf("\t\"%s hex2dec aaa\"\t ---Converts from HEX to DEC 111. Output should be 2730.\n",argv[0]);
 		printf("\t\"%s dec2oct 123\"\t ---Converts from DEC to OCT 123. Output should be 173.\n",argv[0]);
 		printf("\t\"%s oct2dec 123\"\t ---Converts from OCT to DEC 123. Output should be 83.\n",argv[0]);
-		printf("\n\nNote: when translating to bin, because of overflow it only can reach a number up to 1023 (in decimal), 3FF (in hexadecimal) and 1777 (in octal).\nStill trying to solve...");
+		/*printf("\n\nNote: when translating to bin, because of overflow it only can reach a number up to 1023 (in decimal), 3FF (in hexadecimal) and 1777 (in octal).\nStill trying to solve...");*/
 		printf("\n\n");
 		
 	}
