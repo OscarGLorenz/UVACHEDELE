@@ -66,7 +66,7 @@ build:
 
 # Build target and upload
 # make upload
-upload:
+upload: build
 	@echo "$(BICyan) \n Uploading... $(NC)"
 	@apio upload
 
