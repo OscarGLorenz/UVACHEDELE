@@ -1,3 +1,13 @@
+/*
+File: new.c
+File description: Common handy tool. Base translator via command line.
+
+Compilation example in Ubuntu: gcc new.c -o translate
+
+Execution example: ./translate -h
+Created by: HecGL
+*/
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -19,10 +29,11 @@ long int int2bin(long int num){
 }
 	/*NEW FUNCTION TO TRANSLATE TO BINARY. LESS PROBABILITY OF OVERFLOW AS WE DONT STORE THE NUMBER*/
 void int2bin2(long int num){
-	if(num==0||num==1) printf("%d\n", num);
-	else {
+	if(num==0||num==1) {
+		printf("%d", (int)num);
+	} else {
 		int2bin2(num/2);
-		printf("%d", (num%2));
+		printf("%d", (int)(num%2));
 	}
 }
 	/*PREVIOUS FUNCTION TO PASS TO FANTASY. NOT WORKING. UNUSED*/
@@ -67,6 +78,7 @@ int main(int argc, char *argv[]){
 		printf("\t\"%s oct2dec 123\"\t ---Converts from OCT to DEC 123. Output should be 83.\n",argv[0]);
 		/*printf("\n\nNote: when translating to bin, because of overflow it only can reach a number up to 1023 (in decimal), 3FF (in hexadecimal) and 1777 (in octal).\nStill trying to solve...");*/
 		printf("\n\n");
+		printf("Created by HecGL.\n");
 		
 	}
 	else{
@@ -110,10 +122,12 @@ int main(int argc, char *argv[]){
 			if((argc==4) && (!strcmp(INFO, argv[3]))){
 			printf("Converted DEC to BIN ");
 			int2bin2(atoi(argv[2]));
+			printf("\n");
 			}
 			else{				
 				/*printf("%ld\n",int2bin(atoi(argv[2])));*/
 				int2bin2(atoi(argv[2]));
+				printf("\n");
 			}
 		}
 		else if(!strcmp("bin2dec", argv[1])||(!strcmp("BIN2DEC", argv[1]))){
@@ -132,10 +146,12 @@ int main(int argc, char *argv[]){
 			if((argc==4) && (!strcmp(INFO, argv[3]))){
 			printf("Converted OCT to BIN ");
 			int2bin2(strtol(argv[2], NULL, 8));
+			printf("\n");
 			}
 			else {
 				/*printf("%ld\n",int2bin(strtol(argv[2], NULL, 8)));*/
 				int2bin2(strtol(argv[2], NULL, 8));
+				printf("\n");
 			}
 		}
 		else if(!strcmp("bin2hex", argv[1])||(!strcmp("BIN2HEX", argv[1]))){
@@ -151,6 +167,7 @@ int main(int argc, char *argv[]){
 			else{
 				/*printf("%ld\n",int2bin(strtol(argv[2], NULL, 16)));*/
 				int2bin2(strtol(argv[2], NULL, 16));
+				printf("\n");
 			}
 		}
 		else if(!strcmp("fan2dec",argv[1])||(!strcmp("FAN2DEC", argv[1]))){
